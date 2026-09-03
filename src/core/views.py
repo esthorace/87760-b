@@ -5,6 +5,9 @@ from django.shortcuts import render
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    mensaje = input("Dime tu mensaje: ")
-    contexto = {"titulo": "Servicios", "mensaje": mensaje, "fecha": datetime.now(UTC)}
+    contexto = {
+        "titulo": "Servicios",
+        "mensaje": "Aplicación Web para ofrecer servicios",
+        "fecha": datetime.now(UTC),
+    }
     return render(request, "core/index.html", contexto)
