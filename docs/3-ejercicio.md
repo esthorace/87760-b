@@ -9,3 +9,5 @@
 - Crear el modelo `Servicio` con dos campos: `nombre` y `descripcion`, registrarlo en la app `admin`
 
 - Crear superusuario, abrir app `admin` y realizar un CRUD con el modelo `Servicio`
+
+- Crear vista para lista de Servicios, y su template
