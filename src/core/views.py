@@ -11,3 +11,12 @@ def index(request: HttpRequest) -> HttpResponse:
         "fecha": datetime.now(UTC),
     }
     return render(request, "core/index.html", contexto)
+
+
+def ejercicio2(request):
+    usuarios = [
+        {"nombre": "juan", "email": "juan@django"},
+        {"nombre": "santi", "email": "juan@django"},
+        {"nombre": "agustín", "email": "juan@django"},
+    ]
+    return render(request, "core/ejercicio2.html", {"usuarios": usuarios})
