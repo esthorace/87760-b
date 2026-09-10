@@ -1,19 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
-        <main>
-            <h1>{{ titulo }}</h1>
-            <p>{{ mensaje }}</p>
-            <a href="ejercicio2/">Ver core/ejercicio2.html</a>
-            <a href="{% url 'servicios:index' %}">App Servicios</a>
-        </main>
-        <footer>
-            Fecha de hoy: {{ fecha | date:"DATE_FORMAT" }}
-        </footer>
-    </body>
-</html>
+{% extends "core/base.html" %}
+{% block contenido %}
+    <main>
+        <h1>{{ titulo }}</h1>
+        <p>{{ mensaje }}</p>
+        <a href="ejercicio2/">Ver core/ejercicio2.html</a>
+        <a href="{% url 'servicios:index' %}">App Servicios</a>
+    </main>
+    <footer>
+        Fecha de hoy: {{ fecha | date:"DATE_FORMAT" }}
+    </footer>
+{% endblock contenido %}
