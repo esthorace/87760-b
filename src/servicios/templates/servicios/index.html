@@ -1,5 +1,12 @@
 {% extends "core/base.html" %}
 {% block contenido %}
     <h1>Servicios</h1>
-    <a href="{% url 'core:index' %}">Volver</a>
+    <main>
+        <h2>Opciones</h2>
+        <ol>
+            <li><a href="{% url 'servicios:servicio_list' %}">Listar Servicios</a></li>
+            <li><a href="{% url 'servicios:cliente_list' %}">Listar Clientes</a></li>
+        </ol>
+        <a href="{% url 'core:index' %}">Volver</a>
+    </main>
 {% endblock contenido %}
