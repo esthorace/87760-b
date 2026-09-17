@@ -1,11 +1,11 @@
 {% extends "core/base.html" %}
 {% block contenido %}
     <h1>Servicios - Lista</h1>
+    <a href="{% url 'servicios:servicio_create' %}">Crear</a>
     <table border="1">
         <thead>
             <tr>
                 <th>Nombre</th>
-                <th>Descripción</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -13,11 +13,10 @@
             {% for servicio in servicios %}
                 <tr>
                     <td>{{ servicio.nombre }}</td>
-                    <td>{{ servicio.descripcion }}</td>
                     <td>
-                        <a href="#">Ver</a>
-                        <a href="#">Editar</a>
-                        <a href="#">Eliminar</a>
+                        <a href="{% url 'servicios:servicio_detail' servicio.id %}">Ver</a>
+                        <a href="{% url 'servicios:servicio_update' servicio.id %}">Editar</a>
+                        <a href="{% url 'servicios:servicio_delete' servicio.id %}">Eliminar</a>
                     </td>
                 </tr>
             {% empty %}

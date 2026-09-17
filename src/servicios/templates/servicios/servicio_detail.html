@@ -1,0 +1,13 @@
+{% extends "core/base.html" %}
+{% block contenido %}
+    <h1>Servicios - Ver</h1>
+    <ul>
+        <li><strong>Nombre:</strong> {{ servicio.nombre }}</li>
+        {% if servicio.descripcion %}
+            <li><strong>Descripción:</strong> {{ servicio.descripcion }}</li>
+        {% else %}
+            <li><strong>Descripción:</strong> -</li>
+        {% endif %}
+    </ul>
+    <a href="{% url 'servicios:servicio_list' %}">Volver</a>
+{% endblock contenido %}
