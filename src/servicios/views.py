@@ -18,7 +18,11 @@ def index(request: HttpRequest) -> HttpResponse:
 
 
 def servicio_list(request: HttpRequest) -> HttpResponse:
-    servicios = Servicio.objects.all()
+    busqueda = request.GET.get("busqueda", "").strip()
+    if busqueda:
+        servicios = Servicio.objects.filter(nombre__icontains=busqueda)
+    else:
+        servicios = Servicio.objects.all()
     return render(request, "servicios/servicio_list.html", {"servicios": servicios})
 
 
@@ -71,6 +75,12 @@ def servicio_delete(request: HttpRequest, pk: int) -> HttpResponse:
 class ClienteList(ListView):
     model = Cliente
     context_object_name = "clientes"
+
+    def get_queryset(self):
+        busqueda = self.request.GET.get("busqueda", "").strip()
+        if busqueda:
+            return Cliente.objects.filter(nombre__icontains=busqueda)
+        return Cliente.objects.all()
 
 
 class ClienteCreate(CreateView):
