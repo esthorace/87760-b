@@ -1,0 +1,10 @@
+{% extends "core/base.html" %}
+{% block contenido %}
+    <h1>Clientes - Eliminar</h1>
+    <p>¿Estás seguro de eliminar "{{ cliente }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Sí, confirmo</button>
+    </form>
+    <a href="{% url 'servicios:cliente_list' %}">Volver</a>
+{% endblock contenido %}

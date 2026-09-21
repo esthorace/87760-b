@@ -1,6 +1,7 @@
 {% extends "core/base.html" %}
 {% block contenido %}
     <h1>Clientes - Lista</h1>
+    <a href="{% url 'servicios:cliente_create' %}">Crear</a>
     <table border="1">
         <thead>
             <tr>
@@ -14,12 +15,12 @@
             {% for cliente in clientes %}
                 <tr>
                     <td>{{ cliente.nombre }}</td>
-                    <td>{{ cliente.telefono }}</td>
-                    <td>{{ cliente.email }}</td>
+                    <td>{{ cliente.telefono|default:"-" }}</td>
+                    <td>{{ cliente.email|default:"-" }}</td>
                     <td>
-                        <a href="#">Ver</a>
-                        <a href="#">Editar</a>
-                        <a href="#">Eliminar</a>
+                        <a href="{% url 'servicios:cliente_detail' cliente.id %}">Ver</a>
+                        <a href="{% url 'servicios:cliente_update' cliente.id %}">Editar</a>
+                        <a href="{% url 'servicios:cliente_delete' cliente.id %}">Eliminar</a>
                     </td>
                 </tr>
             {% empty %}

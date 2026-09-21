@@ -1,7 +1,15 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
-from servicios.forms import ServicioForm
+from servicios.forms import ClienteForm, ServicioForm
 from servicios.models import Cliente, Servicio
 
 
@@ -60,6 +68,28 @@ def servicio_delete(request: HttpRequest, pk: int) -> HttpResponse:
             )
 
 
-def cliente_list(request: HttpRequest) -> HttpResponse:
-    clientes = Cliente.objects.all()
-    return render(request, "servicios/cliente_list.html", {"clientes": clientes})
+class ClienteList(ListView):
+    model = Cliente
+    context_object_name = "clientes"
+
+
+class ClienteCreate(CreateView):
+    model = Cliente
+    form_class = ClienteForm
+    success_url = reverse_lazy("servicios:cliente_list")
+
+
+class ClienteDetail(DetailView):
+    model = Cliente
+    context_object_name = "cliente"
+
+
+class ClienteUpdate(UpdateView):
+    model = Cliente
+    form_class = ClienteForm
+    success_url = reverse_lazy("servicios:cliente_list")
+
+
+class ClienteDelete(DeleteView):
+    model = Cliente
+    success_url = reverse_lazy("servicios:cliente_list")
