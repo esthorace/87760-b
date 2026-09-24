@@ -128,3 +128,4 @@ MAILERS = {
     },
 }
 LOGIN_REDIRECT_URL = "core:index"
+# LOGOUT_REDIRECT_URL = "core:index"

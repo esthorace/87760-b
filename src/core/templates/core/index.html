@@ -1,13 +1,38 @@
 {% extends "core/base.html" %}
 
+{% block style %}
+    <style>
+        #logout {
+            border: none;
+            background: none;
+            color: inherit;
+            font: inherit;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 0;
+        }
+    </style>
+{% endblock style %}
+
 {% block contenido %}
     <main>
         <h1>{{ titulo }}</h1>
         <p>{{ mensaje }}</p>
         <ol>
-            <li><a href="ejercicio2/">Ver core/ejercicio2.html</a></li>
-            <li><a href="{% url 'servicios:index' %}">App Servicios</a></li>
-            <li><a href="{% url 'core:login' %}">Login</a></li>
+            <li><a href="{% url 'core:ejercicio2' %}">Ver core/ejercicio2.html</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'servicios:index' %}">App Servicios</a></li>
+                <form action="{% url 'core:logout' %}"
+                      method="post"
+                      style="display: inline">
+                    {% csrf_token %}
+                    <li>
+                        <button type="submit" id="logout">Logout</button>
+                    </li>
+                </form>
+            {% else %}
+                <li><a href="{% url 'core:login' %}">Login</a></li>
+            {% endif %}
         </ol>
     </main>
     <footer>
