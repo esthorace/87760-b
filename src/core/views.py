@@ -1,10 +1,11 @@
 from datetime import UTC, datetime
 
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import LoginView
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views.generic import CreateView
+
+from core.forms import RegisterForm
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -25,8 +26,7 @@ def ejercicio2(request):
     return render(request, "core/ejercicio2.html", {"usuarios": usuarios})
 
 
-# class Login(LoginView):
-#     template_name = "core/login.html"
-#     # authentication_form = AuthenticationForm
-#     next_page = reverse_lazy("core:index")
-#     # success_message = "Inicio de sesión exitoso"
+class RegisterView(CreateView):
+    form_class = RegisterForm
+    template_name = "core/register.html"
+    success_url = reverse_lazy("core:login")
