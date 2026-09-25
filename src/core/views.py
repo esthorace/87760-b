@@ -17,6 +17,14 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, "core/index.html", contexto)
 
 
+def about(request: HttpRequest) -> HttpResponse:
+    contexto = {
+        "titulo": "Acerca de",
+        "mensaje": "Aplicación Web para ofrecer servicios",
+    }
+    return render(request, "core/about.html", contexto)
+
+
 def ejercicio2(request):
     usuarios = [
         {"nombre": "juan", "email": "juan@django"},

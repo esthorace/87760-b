@@ -1,0 +1,33 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block style %}
+    <style>
+        .perfil {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .perfil img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
+{% endblock style %}
+
+{% block contenido %}
+    <main>
+        <h1>Acerca de</h1>
+        <p>{{ mensaje }}</p>
+        {% if user.is_authenticated %}
+            <div class="perfil">
+                <img src="{% static 'core/perfil.png' %}" alt="Avatar de {{ user.get_username }}" />
+                <span>{{ user.get_username }}</span>
+            </div>
+        {% endif %}
+        <p><a href="{% url 'core:index' %}">Volver al inicio</a></p>
+    </main>
+{% endblock contenido %}

@@ -1,4 +1,5 @@
 {% extends "core/base.html" %}
+{% load static %}
 
 {% block style %}
     <style>
@@ -11,6 +12,20 @@
             text-decoration: underline;
             padding: 0;
         }
+
+        .usuario {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .usuario img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
     </style>
 {% endblock style %}
 
@@ -20,7 +35,12 @@
         <p>{{ mensaje }}</p>
         <ol>
             <li><a href="{% url 'core:ejercicio2' %}">Ver core/ejercicio2.html</a></li>
+            <li><a href="{% url 'core:about' %}">Acerca de</a></li>
             {% if user.is_authenticated %}
+                <li class="usuario">
+                    <img src="{% static 'core/perfil.png' %}" alt="Avatar de {{ user.get_username }}" />
+                    <span>{{ user.get_username }}</span>
+                </li>
                 <li><a href="{% url 'servicios:index' %}">App Servicios</a></li>
                 <form action="{% url 'core:logout' %}"
                       method="post"
