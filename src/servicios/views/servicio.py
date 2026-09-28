@@ -1,20 +1,16 @@
+__all__ = [
+    "servicio_create",
+    "servicio_delete",
+    "servicio_detail",
+    "servicio_list",
+    "servicio_update",
+]
+
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
-from django.views.generic import (
-    CreateView,
-    DeleteView,
-    DetailView,
-    ListView,
-    UpdateView,
-)
 
-from servicios.forms import ClienteForm, ServicioForm
-from servicios.models import Cliente, Servicio
-
-
-def index(request: HttpRequest) -> HttpResponse:
-    return render(request, "servicios/index.html")
+from ..forms import ServicioForm
+from ..models import Servicio
 
 
 def servicio_list(request: HttpRequest) -> HttpResponse:
@@ -70,36 +66,3 @@ def servicio_delete(request: HttpRequest, pk: int) -> HttpResponse:
                 "servicios/servicio_confirm_delete.html",
                 {"servicio": servicio},
             )
-
-
-class ClienteList(ListView):
-    model = Cliente
-    context_object_name = "clientes"
-
-    def get_queryset(self):
-        busqueda = self.request.GET.get("busqueda", "").strip()
-        if busqueda:
-            return Cliente.objects.filter(nombre__icontains=busqueda)
-        return Cliente.objects.all()
-
-
-class ClienteCreate(CreateView):
-    model = Cliente
-    form_class = ClienteForm
-    success_url = reverse_lazy("servicios:cliente_list")
-
-
-class ClienteDetail(DetailView):
-    model = Cliente
-    context_object_name = "cliente"
-
-
-class ClienteUpdate(UpdateView):
-    model = Cliente
-    form_class = ClienteForm
-    success_url = reverse_lazy("servicios:cliente_list")
-
-
-class ClienteDelete(DeleteView):
-    model = Cliente
-    success_url = reverse_lazy("servicios:cliente_list")
