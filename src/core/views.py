@@ -1,13 +1,16 @@
 from datetime import UTC, datetime
 
+from django.contrib.auth.decorators import login_not_required
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView
 
 from core.forms import RegisterForm
 
 
+@login_not_required
 def index(request: HttpRequest) -> HttpResponse:
     contexto = {
         "titulo": "Servicios",
@@ -17,6 +20,7 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, "core/index.html", contexto)
 
 
+@login_not_required
 def about(request: HttpRequest) -> HttpResponse:
     contexto = {
         "titulo": "Acerca de",
@@ -34,6 +38,7 @@ def ejercicio2(request):
     return render(request, "core/ejercicio2.html", {"usuarios": usuarios})
 
 
+@method_decorator(login_not_required, name="dispatch")
 class RegisterView(CreateView):
     form_class = RegisterForm
     template_name = "core/register.html"
