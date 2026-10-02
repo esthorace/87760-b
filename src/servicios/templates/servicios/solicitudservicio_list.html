@@ -1,0 +1,46 @@
+{% extends "core/base.html" %}
+{% block contenido %}
+    <main class="pagina">
+        <div class="pagina-head">
+            <h1>Solicitudes - Lista</h1>
+            <a class="btn btn-accent" href="{% url 'servicios:solicitud_create' %}">Crear solicitud</a>
+        </div>
+        <form method="get" class="buscador">
+            <input type="text" name="busqueda" placeholder="Buscar por cliente..." />
+            <button class="btn btn-primary" type="submit">Buscar</button>
+        </form>
+        <div class="tabla-wrap">
+            <table class="tabla">
+                <thead>
+                    <tr>
+                        <th>Servicio</th>
+                        <th>Cliente</th>
+                        <th>Estado</th>
+                        <th>Pago</th>
+                        <th>Monto total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for solicitud in solicitudes %}
+                        <tr>
+                            <td>{{ solicitud.servicio }}</td>
+                            <td>{{ solicitud.cliente }}</td>
+                            <td>{{ solicitud.get_estado_display }}</td>
+                            <td>{{ solicitud.get_estado_pago_display }}</td>
+                            <td>{{ solicitud.monto_total }}</td>
+                            <td>
+                                {% include "servicios/acciones.html" with entidad="solicitud" objeto=solicitud %}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6">No hay solicitudes disponibles.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <a class="btn btn-light enlace-volver" href="{% url 'servicios:index' %}">Volver</a>
+    </main>
+{% endblock contenido %}

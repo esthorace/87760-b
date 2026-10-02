@@ -2,14 +2,14 @@
 {% block contenido %}
     <main class="pagina">
         <div class="pagina-head">
-            <h1>Clientes - Eliminar</h1>
+            <h1>Pagos - Eliminar</h1>
         </div>
         <div class="confirmar-card">
-            <p>¿Estás seguro de eliminar "{{ cliente }}"?</p>
+            <p>¿Estás seguro de eliminar "{{ pago }}"?</p>
             <form method="post" class="confirmar-acciones">
                 {% csrf_token %}
                 <button class="btn btn-danger" type="submit">Sí, confirmo</button>
-                <a class="btn btn-light" href="{% url 'servicios:cliente_list' %}">Cancelar</a>
+                <a class="btn btn-light" href="{% url 'servicios:pago_list' %}">Cancelar</a>
             </form>
         </div>
     </main>

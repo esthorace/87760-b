@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
-from servicios.models import Cliente, Servicio
+from servicios.models import Cliente, Pago, Servicio, SolicitudServicio
 
 # Vistas que deben ser accesibles sin iniciar sesión.
 VISTAS_PUBLICAS = ["core:about", "core:index", "core:login", "core:register"]
@@ -19,6 +19,10 @@ class LoginRequiredMiddlewareTests(TestCase):
         self.usuario = User.objects.create_user(username="ana", password="clave-segura-123")
         self.cliente = Cliente.objects.create(nombre="Cliente de prueba")
         self.servicio = Servicio.objects.create(nombre="Servicio de prueba")
+        self.solicitud = SolicitudServicio.objects.create(
+            cliente=self.cliente, servicio=self.servicio
+        )
+        self.pago = Pago.objects.create(solicitud=self.solicitud, monto=50)
 
     def rutas_protegidas(self) -> list[tuple[str, dict, str]]:
         """(nombre de la vista, kwargs, ruta esperada en next)."""
@@ -58,6 +62,40 @@ class LoginRequiredMiddlewareTests(TestCase):
                 "servicios:servicio_delete",
                 {"pk": self.servicio.pk},
                 f"/servicios/servicio/delete/{self.servicio.pk}",
+            ),
+            ("servicios:solicitud_list", {}, "/servicios/solicitud/list"),
+            ("servicios:solicitud_create", {}, "/servicios/solicitud/create"),
+            (
+                "servicios:solicitud_detail",
+                {"pk": self.solicitud.pk},
+                f"/servicios/solicitud/detail/{self.solicitud.pk}",
+            ),
+            (
+                "servicios:solicitud_update",
+                {"pk": self.solicitud.pk},
+                f"/servicios/solicitud/update/{self.solicitud.pk}",
+            ),
+            (
+                "servicios:solicitud_delete",
+                {"pk": self.solicitud.pk},
+                f"/servicios/solicitud/delete/{self.solicitud.pk}",
+            ),
+            ("servicios:pago_list", {}, "/servicios/pago/list"),
+            ("servicios:pago_create", {}, "/servicios/pago/create"),
+            (
+                "servicios:pago_detail",
+                {"pk": self.pago.pk},
+                f"/servicios/pago/detail/{self.pago.pk}",
+            ),
+            (
+                "servicios:pago_update",
+                {"pk": self.pago.pk},
+                f"/servicios/pago/update/{self.pago.pk}",
+            ),
+            (
+                "servicios:pago_delete",
+                {"pk": self.pago.pk},
+                f"/servicios/pago/delete/{self.pago.pk}",
             ),
         ]
 

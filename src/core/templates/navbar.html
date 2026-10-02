@@ -1,0 +1,74 @@
+{% load static %}
+<header>
+  <div class="container">
+    <nav class="nav" id="mainNav">
+      <a class="brand" href="{% url 'core:index' %}#inicio" aria-label="CASA+ inicio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2">
+            <path d="M3 11.5 12 4l9 7.5" />
+            <path d="M5.5 10.5V20h13v-9.5" />
+            <path d="M9.5 20v-5h5v5" />
+          </svg>
+        </span>
+        CASA+
+      </a>
+      <div class="nav-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#como-trabajamos">Cómo trabajamos</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <div class="nav-actions">
+        <a class="nav-phone" href="tel:+5402615550101">
+          <span>+54 0261 555-0101</span>
+        </a>
+        {% if user.is_authenticated %}
+          <span class="usuario">
+            <img src="{% static 'core/perfil.png' %}" alt="Avatar de {{ user.get_username }}" />
+            <span>{{ user.get_username }}</span>
+          </span>
+          <a class="btn btn-light nav-panel" href="{% url 'servicios:index' %}">Panel</a>
+          <form action="{% url 'core:logout' %}" method="post" style="display: inline">
+            {% csrf_token %}
+            <button type="submit" id="logout">Logout</button>
+          </form>
+        {% else %}
+          <a class="btn btn-accent" href="{% url 'core:login' %}">Iniciar sesión</a>
+        {% endif %}
+        <a class="btn btn-accent" href="#contacto">Pedir presupuesto</a>
+        <button class="menu-button"
+                id="menuButton"
+                aria-label="Abrir menú"
+                aria-expanded="false">
+          <svg width="20"
+               height="20"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+<script>
+    const nav = document.getElementById("mainNav");
+    const menuButton = document.getElementById("menuButton");
+
+    menuButton.addEventListener("click", () => {
+        const opened = nav.classList.toggle("is-open");
+        menuButton.setAttribute("aria-expanded", String(opened));
+    });
+
+    document.querySelectorAll(".nav-links a").forEach(link => {
+        link.addEventListener("click", () => {
+            nav.classList.remove("is-open");
+            menuButton.setAttribute("aria-expanded", "false");
+        });
+    });
+</script>

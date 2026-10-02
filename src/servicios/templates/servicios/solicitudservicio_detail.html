@@ -1,0 +1,30 @@
+{% extends "core/base.html" %}
+{% block contenido %}
+    <main class="pagina">
+        <div class="pagina-head">
+            <h1>Solicitudes - Ver</h1>
+            {% include "servicios/acciones.html" with entidad="solicitud" objeto=solicitud %}
+        </div>
+        <ul class="lista-datos">
+            <li><strong>Cliente:</strong> {{ solicitud.cliente }}</li>
+            <li><strong>Servicio:</strong> {{ solicitud.servicio }}</li>
+            <li><strong>Descripción:</strong> {{ solicitud.descripcion|default:"-" }}</li>
+            <li><strong>Estado:</strong> {{ solicitud.get_estado_display }}</li>
+            <li><strong>Pago:</strong> {{ solicitud.get_estado_pago_display }}</li>
+            <li><strong>Monto total:</strong> {{ solicitud.monto_total }}</li>
+            <li><strong>Fecha:</strong> {{ solicitud.fecha }}</li>
+        </ul>
+        <h2 class="subtitulo">Pagos</h2>
+        <ul class="lista-datos">
+            {% for pago in solicitud.pagos.all %}
+                <li>
+                    {{ pago.fecha }} - {{ pago.monto }}
+                    (<a href="{% url 'servicios:pago_detail' pago.id %}">Ver</a>)
+                </li>
+            {% empty %}
+                <li>No hay pagos registrados.</li>
+            {% endfor %}
+        </ul>
+        <a class="btn btn-light enlace-volver" href="{% url 'servicios:solicitud_list' %}">Volver</a>
+    </main>
+{% endblock contenido %}

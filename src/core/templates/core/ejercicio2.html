@@ -1,29 +1,31 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ejercicio 2 - Usuarios</title>
-    </head>
-    <body>
-        <h1>Ejercicio 2</h1>
-        <h2>Datos de usuarios</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for usuario in usuarios %}
+{% extends "core/base.html" %}
+
+{% block title %}Ejercicio 2 - Usuarios{% endblock title %}
+
+{% block contenido %}
+    <main class="pagina">
+        <div class="pagina-head">
+            <h1>Ejercicio 2</h1>
+        </div>
+        <h2 class="subtitulo">Datos de usuarios</h2>
+        <div class="tabla-wrap">
+            <table class="tabla">
+                <thead>
                     <tr>
-                        <td>{{ usuario.nombre }}</td>
-                        <td>{{ usuario.email }}</td>
+                        <th>Nombre</th>
+                        <th>Email</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <a href="/">Volver</a>
-    </body>
-</html>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                        <tr>
+                            <td>{{ usuario.nombre }}</td>
+                            <td>{{ usuario.email }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <a class="btn btn-light enlace-volver" href="/">Volver</a>
+    </main>
+{% endblock contenido %}

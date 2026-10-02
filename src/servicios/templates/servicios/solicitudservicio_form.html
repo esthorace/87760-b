@@ -4,11 +4,11 @@
     <main class="pagina">
         {% if form.instance.pk %}
             <div class="pagina-head">
-                <h1>Servicios - Editar</h1>
+                <h1>Solicitudes - Editar</h1>
             </div>
         {% else %}
             <div class="pagina-head">
-                <h1>Servicios - Crear</h1>
+                <h1>Solicitudes - Crear</h1>
             </div>
         {% endif %}
         <form method="post" class="form-card">
@@ -20,6 +20,6 @@
                 <button class="btn btn-primary" type="submit">Enviar datos</button>
             </div>
         </form>
-        <a class="btn btn-light enlace-volver" href="{% url 'servicios:servicio_list' %}">Volver</a>
+        <a class="btn btn-light enlace-volver" href="{% url 'servicios:solicitud_list' %}">Volver</a>
     </main>
 {% endblock contenido %}

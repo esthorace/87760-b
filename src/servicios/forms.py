@@ -1,6 +1,6 @@
 from django import forms
 
-from servicios.models import Cliente, Servicio
+from servicios.models import Cliente, Pago, Servicio, SolicitudServicio
 
 
 class ServicioForm(forms.ModelForm):
@@ -12,4 +12,16 @@ class ServicioForm(forms.ModelForm):
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
+        fields = "__all__"
+
+
+class SolicitudServicioForm(forms.ModelForm):
+    class Meta:
+        model = SolicitudServicio
+        fields = "__all__"
+
+
+class PagoForm(forms.ModelForm):
+    class Meta:
+        model = Pago
         fields = "__all__"

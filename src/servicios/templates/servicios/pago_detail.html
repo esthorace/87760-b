@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+{% block contenido %}
+    <main class="pagina">
+        <div class="pagina-head">
+            <h1>Pagos - Ver</h1>
+            {% include "servicios/acciones.html" with entidad="pago" objeto=pago %}
+        </div>
+        <ul class="lista-datos">
+            <li><strong>Solicitud:</strong> {{ pago.solicitud }}</li>
+            <li><strong>Monto:</strong> {{ pago.monto }}</li>
+            <li><strong>Fecha:</strong> {{ pago.fecha }}</li>
+        </ul>
+        <a class="btn btn-light enlace-volver" href="{% url 'servicios:pago_list' %}">Volver</a>
+    </main>
+{% endblock contenido %}

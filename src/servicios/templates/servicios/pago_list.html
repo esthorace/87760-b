@@ -2,32 +2,34 @@
 {% block contenido %}
     <main class="pagina">
         <div class="pagina-head">
-            <h1>Servicios - Lista</h1>
-            <a class="btn btn-accent" href="{% url 'servicios:servicio_create' %}">Crear servicio</a>
+            <h1>Pagos - Lista</h1>
+            <a class="btn btn-accent" href="{% url 'servicios:pago_create' %}">Crear pago</a>
         </div>
-        <form method="get" class="buscador">
-            <input type="text" name="busqueda" placeholder="Buscar..." />
-            <button class="btn btn-primary" type="submit">Buscar</button>
-        </form>
         <div class="tabla-wrap">
             <table class="tabla">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
+                        <th>Solicitud</th>
+                        <th>Monto</th>
+                        <th>Fecha</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for servicio in servicios %}
+                    {% for pago in pagos %}
                         <tr>
-                            <td>{{ servicio.nombre }}</td>
                             <td>
-                                {% include "servicios/acciones.html" with entidad="servicio" objeto=servicio %}
+                                <a href="{% url 'servicios:solicitud_detail' pago.solicitud.id %}">{{ pago.solicitud }}</a>
+                            </td>
+                            <td>{{ pago.monto }}</td>
+                            <td>{{ pago.fecha }}</td>
+                            <td>
+                                {% include "servicios/acciones.html" with entidad="pago" objeto=pago %}
                             </td>
                         </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="2">No hay servicios disponibles.</td>
+                            <td colspan="4">No hay pagos disponibles.</td>
                         </tr>
                     {% endfor %}
                 </tbody>

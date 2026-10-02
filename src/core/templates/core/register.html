@@ -1,10 +1,21 @@
 {% extends "core/base.html" %}
 
 {% block contenido %}
-    <h1>Registro de Usuario</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Registrar</button>
-    </form>
+    <main class="pagina">
+        <div class="auth-card">
+            <div class="pagina-head">
+                <h1>Registro de Usuario</h1>
+            </div>
+            <form method="post" class="form-card">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="form-acciones">
+                    <button class="btn btn-primary" type="submit">Registrar</button>
+                </div>
+            </form>
+            <p class="enlace-secundario">
+                ¿Ya tienes una cuenta? <a href="{% url 'core:login' %}">Inicia sesión aquí</a>
+            </p>
+        </div>
+    </main>
 {% endblock contenido %}

@@ -1,10 +1,15 @@
 {% extends "core/base.html" %}
 {% block contenido %}
-    <h1>Clientes - Ver</h1>
-    <ul>
-        <li><strong>Nombre:</strong> {{ cliente.nombre }}</li>
-        <li><strong>Teléfono:</strong> {{ cliente.telefono|default:"-" }}</li>
-        <li><strong>Email:</strong> {{ cliente.email|default:"-" }}</li>
-    </ul>
-    <a href="{% url 'servicios:cliente_list' %}">Volver</a>
+    <main class="pagina">
+        <div class="pagina-head">
+            <h1>Clientes - Ver</h1>
+            {% include "servicios/acciones.html" with entidad="cliente" objeto=cliente %}
+        </div>
+        <ul class="lista-datos">
+            <li><strong>Nombre:</strong> {{ cliente.nombre }}</li>
+            <li><strong>Teléfono:</strong> {{ cliente.telefono|default:"-" }}</li>
+            <li><strong>Email:</strong> {{ cliente.email|default:"-" }}</li>
+        </ul>
+        <a class="btn btn-light enlace-volver" href="{% url 'servicios:cliente_list' %}">Volver</a>
+    </main>
 {% endblock contenido %}

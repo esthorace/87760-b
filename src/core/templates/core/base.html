@@ -1,16 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Servicios</title>
+        <title>{% block title %}CASA+ | Servicios para tu hogar{% endblock title %}</title>
+        <link rel="stylesheet" href="{% static 'core/estilo.css' %}" />
     </head>
 
     {% block style %}
     {% endblock style %}
 
     <body>
+        {% include "navbar.html" %}
         {% block contenido %}
         {% endblock contenido %}
+        {% include "footer.html" %}
     </body>
 </html>

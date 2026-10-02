@@ -1,37 +1,42 @@
 {% extends "core/base.html" %}
 {% block contenido %}
-    <h1>Clientes - Lista</h1>
-    <a href="{% url 'servicios:cliente_create' %}">Crear</a>
-    <form method="get">
-        <input type="text" name="busqueda" placeholder="Buscar..." />
-    </form>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Teléfono</th>
-                <th>Email</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for cliente in clientes %}
-                <tr>
-                    <td>{{ cliente.nombre }}</td>
-                    <td>{{ cliente.telefono|default:"-" }}</td>
-                    <td>{{ cliente.email|default:"-" }}</td>
-                    <td>
-                        <a href="{% url 'servicios:cliente_detail' cliente.id %}">Ver</a>
-                        <a href="{% url 'servicios:cliente_update' cliente.id %}">Editar</a>
-                        <a href="{% url 'servicios:cliente_delete' cliente.id %}">Eliminar</a>
-                    </td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="4">No hay clientes disponibles.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'servicios:index' %}">Volver</a>
-{% endblock %}
+    <main class="pagina">
+        <div class="pagina-head">
+            <h1>Clientes - Lista</h1>
+            <a class="btn btn-accent" href="{% url 'servicios:cliente_create' %}">Crear cliente</a>
+        </div>
+        <form method="get" class="buscador">
+            <input type="text" name="busqueda" placeholder="Buscar..." />
+            <button class="btn btn-primary" type="submit">Buscar</button>
+        </form>
+        <div class="tabla-wrap">
+            <table class="tabla">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in clientes %}
+                        <tr>
+                            <td>{{ cliente.nombre }}</td>
+                            <td>{{ cliente.telefono|default:"-" }}</td>
+                            <td>{{ cliente.email|default:"-" }}</td>
+                            <td>
+                                {% include "servicios/acciones.html" with entidad="cliente" objeto=cliente %}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4">No hay clientes disponibles.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <a class="btn btn-light enlace-volver" href="{% url 'servicios:index' %}">Volver</a>
+    </main>
+{% endblock contenido %}
